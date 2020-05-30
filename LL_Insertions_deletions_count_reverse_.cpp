@@ -33,11 +33,15 @@ void insertion(int value)
 void display()
 {
     temp=head;
+    if(temp==nullptr)
+        std::cout<<"Empty Linked List!";
+    else{
      while(temp!=nullptr)
      {
          std::cout<<temp->data<<" ";
          temp=temp->next;
      }
+    }
      std::cout<<std::endl;
 }
 
@@ -70,23 +74,35 @@ void insertion_at_any(int value,int pos)
 void deletion_at_beg()
 {
     temp=head;
+    if(temp==nullptr)
+        std::cout<<"Empty Linked List!"<<std::endl;
+    else{
     head=head->next;
     delete(temp);
+    }
 }
 
 void deletion_at_end()
 {
     temp=head;
+    
+    if(temp==nullptr)
+        std::cout<<"Empty Linked List!"<<std::endl;
+    else{
     while(temp->next!=tail)
         temp=temp->next;
     temp->next=nullptr;
     delete(tail);
     tail=temp;
+    }
 }
 
 void deletion_at_any(int pos)
 {
     temp=head;
+    if(temp==nullptr)
+        std::cout<<"Empty Linked List!"<<std::endl;
+    else{
   for(int i{1};i<pos-1;i++)
   {
       temp=temp->next;
@@ -94,6 +110,7 @@ void deletion_at_any(int pos)
   node*t=temp->next;
   temp->next=temp->next->next;
   delete(t);
+    }
 }
 
 int count_node()
