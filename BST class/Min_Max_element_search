@@ -1,0 +1,126 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+class BST
+{
+private:
+    struct node
+    {
+        int data;
+        node* left,*right;
+    }*root;
+   node* insertion_p(node* root,int value);
+   void display_p(node*root);
+   int max_ele_p(node*root);
+   int min_ele_p(node*root);
+
+public:
+    BST();
+    void insertion(int value);
+    node* create(int value);
+    void display();
+    int max_ele();
+    int min_ele();
+};
+
+BST::BST()
+{
+   root=nullptr;
+}
+
+BST::node* BST::create(int value)
+{
+    node* newnode=new node;
+    newnode->data=value;
+    newnode->left=newnode->right=nullptr;
+    return newnode;
+}
+
+BST::node* BST::insertion_p(node* root,int value)
+{
+    if(root==nullptr)
+        root=create(value);
+
+    else
+    {
+        if(root->data>value)
+          root->left=insertion_p(root->left,value);
+        else
+          root->right=insertion_p(root->right,value);
+    }
+
+    return root;
+}
+
+void BST::insertion(int value)
+{
+  root=insertion_p(root,value);
+}
+
+void BST::display()
+{
+  display_p(root);
+}
+
+void BST::display_p(node* root)
+{
+    if(root==nullptr)
+        return;
+        display_p(root->left);
+       cout<<root->data<<" ";
+       display_p(root->right);
+}
+
+int BST::max_ele_p(node* ptr)
+{
+    if(this->root==nullptr)
+    cout<<"EMPTY TREE"<<endl;
+  else
+  {
+      if(ptr->right==nullptr)
+        return ptr->data;
+      max_ele_p(ptr->right);
+  }
+}
+
+int BST::min_ele_p(node*ptr)
+{
+    if(this->root==nullptr)
+    cout<<"EMPTY TREE"<<endl;
+  else
+  {
+      if(ptr->left==nullptr)
+        return ptr->data;
+      min_ele_p(ptr->left);
+  }
+}
+
+int BST::max_ele()
+{
+    return max_ele_p(root);
+}
+
+int BST::min_ele()
+{
+    return min_ele_p(root);
+}
+
+
+int main()
+{
+    BST tree;
+    tree.insertion(40);
+    tree.insertion(50);
+    tree.insertion(10);
+    tree.insertion(30);
+    tree.insertion(70);
+    tree.insertion(90);
+    tree.insertion(20);
+    tree.display();
+    cout<<endl<<"MAXIMUM ELEMENT IN TREE IS : "<<tree.max_ele()<<endl;
+    cout<<"MINIMUM ELEMENT IN TREE IS : "<<tree.min_ele()<<endl;
+}
+
+
+
