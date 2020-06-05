@@ -1,0 +1,123 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+class BST
+{
+private:
+    struct node
+    {
+        int data;
+        node* left,*right;
+    }*root;
+   node* insertion_p(node* root,int value);
+   void display_p(node*root);
+   bool searching_p(node* ptr,int value);
+
+public:
+    BST();
+    void insertion(int value);
+    node* create(int value);
+    void display();
+    bool searching(int value);
+};
+
+BST::BST()
+{
+   root=nullptr;
+}
+
+BST::node* BST::create(int value)
+{
+    node* newnode=new node;
+    newnode->data=value;
+    newnode->left=newnode->right=nullptr;
+    return newnode;
+}
+
+BST::node* BST::insertion_p(node* root,int value)
+{
+    if(root==nullptr)
+        root=create(value);
+
+    else
+    {
+        if(root->data>value)
+          root->left=insertion_p(root->left,value);
+        else
+          root->right=insertion_p(root->right,value);
+    }
+
+    return root;
+}
+
+void BST::insertion(int value)
+{
+  root=insertion_p(root,value);
+}
+
+void BST::display()
+{
+  display_p(root);
+}
+
+//display func
+void BST::display_p(node* root)
+{
+    if(root==nullptr)
+        return;
+        display_p(root->left);
+       cout<<root->data<<" ";
+       display_p(root->right);
+}
+
+//searching functions
+bool BST::searching(int value)
+{
+    return searching_p(root,value);
+}
+
+bool BST::searching_p(node* ptr,int value)
+{
+    if(root==nullptr)
+        {
+            cout<<"Empty Tree"<<endl;
+        }
+
+       else{
+        if(ptr==nullptr)
+            return false;
+        if(ptr->data==value)
+            return true;
+        else if(ptr->data>value)
+            searching_p(ptr->left,value);
+        else
+            searching_p(ptr->right,value);
+       }
+}
+
+int main()
+{
+    cout<<boolalpha;
+    BST tree;
+    tree.insertion(40);
+    tree.insertion(50);
+    tree.insertion(10);
+    tree.insertion(30);
+    tree.insertion(70);
+    tree.insertion(90);
+    tree.insertion(20);
+    tree.insertion(20);
+    tree.display();
+    int key;
+    do
+    {
+    cout<<endl<<"Enter value to search for (-1 for exit) : ";
+    cin>>key;
+    if(key==-1)
+        break;
+    cout<<tree.searching(key)<<endl;
+    }while(key!=-1);
+}
+
+
