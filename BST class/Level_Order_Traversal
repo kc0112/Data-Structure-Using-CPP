@@ -1,0 +1,100 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+
+struct node
+{
+    int data;
+    node *left;
+    node *right;
+}*root=NULL;
+
+struct Queue
+{
+    node* ptr;
+    Queue* next;
+}*q{nullptr},*rear{nullptr},*FRONT{nullptr};
+
+void enqueue (node* p)
+{
+    q=new Queue;
+    q->ptr=p;
+    q->next=nullptr;
+
+    if(rear==nullptr)
+    {
+        FRONT=q;
+        rear=q;
+    }
+    else
+    {
+       rear->next=q;
+       rear=q;
+    }
+}
+
+node* dequeue()
+{
+        node* temp=FRONT->ptr;
+        FRONT=FRONT->next;
+        if(FRONT==nullptr)
+            rear=nullptr;
+        return temp;
+}
+
+
+node* insertion (node* root,int n)
+{
+    if (root==NULL)
+    {
+        root=new node;
+        root->data=n;
+        root->left=root->right=NULL;
+        return root;
+    }
+
+    else
+   {
+        if (n<root->data)
+            root->left=insertion(root->left,n);
+        else
+            root->right=insertion (root->right,n);
+        return (root);
+    }
+}
+
+void display(node*root)
+{
+ if(root==NULL)
+        return ;
+ display (root->left);
+  cout<<root->data<<" ";
+ display (root->right);
+}
+
+
+int main()
+{
+
+    root=insertion(root,10);
+    root=insertion(root,15);
+    root=insertion(root,17);
+    root=insertion(root,6);
+    root=insertion(root,7);
+
+    cout<<"========================Inorder Traversal========================="<<endl;
+    display(root);
+    cout<<endl<<"====================Level Order Traversal========================"<<endl;
+    enqueue(root);
+    Queue* temp=FRONT;
+    while(temp!=nullptr)
+    {
+        node* parent=dequeue();
+        cout<<parent->data<<" ";
+        if(parent->left!=nullptr)
+        enqueue(parent->left);
+        if(parent->right!=nullptr)
+        enqueue(parent->right);
+    }
+}
