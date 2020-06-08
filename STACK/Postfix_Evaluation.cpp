@@ -3,7 +3,7 @@
 #include<cctype>
 #define siz 30
 using namespace std;
-int Stack[siz],top{-1};
+char Stack[siz],top{-1};
 
 void push(int value)
 {
