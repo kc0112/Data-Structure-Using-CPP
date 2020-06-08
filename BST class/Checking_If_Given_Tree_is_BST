@@ -1,0 +1,52 @@
+#include<iostream>
+#include<cstdlib>
+#include<climits>
+
+struct node
+{
+    int data;
+    node *left,*right;
+}*root=NULL;
+
+node* create(int data)
+{
+  node* newnode=new node;
+  newnode->data = data;
+  newnode->left = newnode->right = NULL;
+  return(newnode);
+}
+
+int BSTUtil( node* root, int mini, int maxi) {
+
+   if (root==NULL)
+      return 1;
+
+   if (root->data <mini || root->data > maxi)
+      return 0;
+
+      return (BSTUtil(root->left, mini, root->data-1)&& BSTUtil(root->right, root->data+1, maxi));
+}
+
+int isBST(node* root) {
+
+   int mini=INT_MIN, maxi=INT_MAX;
+   return(BSTUtil(root,mini,maxi));
+}
+
+int main()
+{
+  root = create(4);
+  root->left = create(2);
+  root->right = create(5);
+  root->left->left = create(1);
+  root->left->right = create(3);
+
+    if(isBST(root))
+        std::cout<<"yes";
+    else
+       std::cout<<"no";
+}
+
+
+
+
