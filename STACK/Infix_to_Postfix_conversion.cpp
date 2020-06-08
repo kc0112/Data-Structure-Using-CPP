@@ -3,7 +3,7 @@
 #include<string>
 #include<cctype>
 #define siz 30
-int Stack[siz],top{-1};
+char Stack[siz],top{-1};
 using namespace std;
 
 char pop()
