@@ -38,7 +38,7 @@ int main()
             node[i].id=i;
             for(int j{0};j<n;j++)
                 {
-                    cout<<"EDGE BETWEEN "<<i<<" AND "<<j<<" (y/n) : ";
+                    cout<<"EDGE BETWEEN "<<i+1<<" AND "<<j+1<<" (y/n) : ";
                     cin>>ch;
                     if(ch=='y')
                     {
