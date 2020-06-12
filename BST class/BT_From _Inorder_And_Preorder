@@ -1,0 +1,61 @@
+#include<iostream>
+#include<cstdlib>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+struct node
+{
+    int data;
+    node *left,*right;
+}*root;
+
+void display(node*root)
+{
+ if(root==NULL)
+        return ;
+ display (root->left);
+  cout<<root->data<<" ";
+ display (root->right);
+}
+
+node* create (int value)
+{
+    node* newnode=new node;
+    newnode->data=value;
+    newnode->left=newnode->right=nullptr;
+    return newnode;
+}
+
+void tree(auto START,auto END,int *key,node* &root,int *last)
+{
+
+    if(START>END)
+        return;
+   auto it=find(START,END+1,*key);
+
+  if(it==END+1)
+  {
+    tree(START,END,key+1,root,last);
+    return;
+  }
+   if(START==END||key==last)
+   {
+       root=create(*key);
+       return;
+   }
+
+   root=create(*key);
+
+   tree(START,it-1,key+1,root->left,last);
+   tree(it+1,END,key+1,root->right,last);
+}
+
+int main()
+{
+    vector<int>preorder{1,2,4,8,9,10,11,5,3,6,7};
+    vector<int>inorder{8,4,10,9,11,2,5,1,6,3,7};
+
+    tree(inorder.begin(),inorder.end(),&preorder.front(),root,&preorder.back());
+    display(root);
+}
